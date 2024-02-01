@@ -2,28 +2,24 @@
 
 ## Beskrivning
 
-Här beskriver du applikationens funktionalitet.
-
-### Exempel (ta bort)
-
-Book-O-Matic är en applikation där användare kan skapa virtuella bokhyllor. De kan mata in vilka böcker de har, och information om dessa. Man kan betygssätta böcker och skriva kommentarer. Om en bok är inlagd av en annan användare kan andra användare lägga till den i "sin" bokhylla, och skriva egna kommentarer och recensioner och sätta egna betyg. Man kan söka efter titlar och se kommentarer, recensioner och betyg
+ByggarNs 3dskrivarhandel är en webbshop där man kan köpa 3dskrivare och möjligen reservdelar och accessoarerer. När man köper något får man en order som sparas i handelns databas, man ska som användare och admin kunna gå tillbaka och se sina ordrar och kunna lägga en ny likadan eller liknande. En användare ska kunna ha många orders och ordrarna kan innehålla många skrivare/tillbehör med många taggar, t ex att en skrivare har direkt/bowdenmatning, vilka material den stödjer, rörelsesystem osv... dessa taggar används för att kunna filtera webbshoppen så att man bara ser de skrivarna man vill ha, säg en corexyskrivare med bowdenextruder.    
 
 ## Användare och roller
 
 Här skriver du ner vilka typer av användare (som i inloggade användare) det finns, och vad de har för rättigheter, det vill säga, vad de kan göra (tänk admin, standard användare, etc).
 
-### Exempel (ta bort)
+Gästanvändare - oinloggad.
+Kan söka kolla på skrivare och se deras beskrivningar, kan inte lägga beställningar 
 
-Gästanvändare - oinloggad
-. Kan söka efter titlar och se genomsnittligt betyg. Kan inte se eller skriva kommentarer eller sätta egna betyg.
+Standardanvändare - inloggad. 
+Kan allt gästanvändare kan, men kan även lägga beställningar och se sina tidigare. Kan ta bort sitt eget konto och information kopplat till det.
 
-Standardanvändare - inloggad. Kan allt gästanvändare kan, men kan även lägga in nya böcker och skriva kommentarer etc. Kan ta bort sitt eget konto och information kopplat till det.
-
-Adminanvändare - kan ta bort/editera böcker, kommentarer och användare.
+Adminanvändare 
+Kan ta bort/editera skrivare, taggar och användare. kan se alla orders och användares information
 
 ## ER-Diagram
 
-![Er-Diagram](./er_diagram.png?raw=true "ER-diagram")
+![Er-Diagram](./er_diagram.JPG?raw=true "ER-diagram")
 
 ## Gränssnittsskisser
 
