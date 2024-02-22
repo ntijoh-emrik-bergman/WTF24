@@ -9,11 +9,15 @@ def db
 end
 
 def drop_tables
+    db.execute('DROP TABLE IF EXISTS customers')
     db.execute('DROP TABLE IF EXISTS products')
+    db.execute('DROP TABLE IF EXISTS line_items')
+    db.execute('DROP TABLE IF EXISTS orders')
+    db.execute('DROP TABLE IF EXISTS parts')
+    db.execute('DROP TABLE IF EXISTS tags')
 end
 
 def create_tables
-
     db.execute('CREATE TABLE "customers" (
         "id"	INTEGER,
         "first name"	TEXT NOT NULL,
@@ -22,11 +26,11 @@ def create_tables
         "email"	TEXT NOT NULL UNIQUE,
         "adress"	TEXT NOT NULL,
         "payment_method"	TEXT NOT NULL,
-        "password"	INTEGER NOT NULL,
+        "password"	TEXT NOT NULL,
         PRIMARY KEY("id" AUTOINCREMENT)
     )')
-
-    db.execute('CREATE TABLE "items" (
+   
+    db.execute('CREATE TABLE "products" (
         "id"	INTEGER,
         "name"	TEXT NOT NULL UNIQUE,
         "price"	INTEGER NOT NULL,
@@ -47,12 +51,17 @@ def create_tables
     )')
 
     
-    db.execute('
-    ')
+    db.execute('CREATE TABLE "parts" (
+        "item_id"	INTEGER,
+        "tag_id"	INTEGER
+    )')
 
-    db.execute('
-    ')
-    
+    db.execute('CREATE TABLE "tags" (
+        "id"	INTEGER,
+        "name"	TEXT NOT NULL UNIQUE,
+        PRIMARY KEY("id" AUTOINCREMENT)
+    )')
+
     db.execute('
     ')
 
