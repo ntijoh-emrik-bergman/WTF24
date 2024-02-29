@@ -20,8 +20,8 @@ end
 def create_tables
     db.execute('CREATE TABLE "customers" (
         "id"	INTEGER,
-        "first name"	TEXT NOT NULL,
-        "last name"	TEXT,
+        "first_name"	TEXT NOT NULL,
+        "last_name"	TEXT,
         "phone"	TEXT NOT NULL UNIQUE,
         "email"	TEXT NOT NULL UNIQUE,
         "adress"	TEXT NOT NULL,
@@ -34,7 +34,7 @@ def create_tables
         "id"	INTEGER,
         "name"	TEXT NOT NULL UNIQUE,
         "price"	INTEGER NOT NULL,
-        "desc"	TEXT NOT NULL,
+        "description"	TEXT NOT NULL,
         PRIMARY KEY("id" AUTOINCREMENT)
     )')
 
@@ -62,25 +62,24 @@ def create_tables
         PRIMARY KEY("id" AUTOINCREMENT)
     )')
 
-    db.execute('
-    ')
-
-    
-)
-
 end
 
 def seed_tables
 
-    fruits = [
-        {name: 'Pear', description: 'a sweet, juicy, yellow or green fruit with a round base and slightly pointed top'},
-        {name: 'Apple', description: 'a round, edible fruit having a red, green, or yellow skin'},
-        {name: 'Banana', description: 'a long, curved fruit with a usually yellow skin and soft, sweet flesh inside'},
-        {name: 'Orange', description: 'a round, orange-colored fruit that is valued mainly for its sweet juice'}
+    customers = [
+        {first_name: '', last_name: '', adress: '', payment_method: ''}
     ]
 
-    fruits.each do |fruit|
-        db.execute('INSERT INTO products (name, description) VALUES (?,?)', fruit[:name], fruit[:description])
+    products = [
+        {name: 'Voron 2.4', price: '999', description: 'a sweet, juicy, yellow or green fruit with a round base and slightly pointed top'},
+        {name: 'Voron Trident', price: '899', description: 'a round, edible fruit having a red, green, or yellow skin'},
+        {name: 'Voron 0.2', price: '399', description: 'a long, curved fruit with a usually yellow skin and soft, sweet flesh inside'},
+        {name: 'Prusa mk4', price: '1200', description: 'a round, orange-colored fruit that is valued mainly for its sweet juice'}
+    ]
+
+
+    products.each do |product|
+        db.execute('INSERT INTO products (name, price, description) VALUES (?,?,?)', product[:name], product[:price], product[:description])
     end
 
 end
