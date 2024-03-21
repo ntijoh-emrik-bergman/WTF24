@@ -1,5 +1,7 @@
 <form action='/products/<%=@product['id']%>/update' method='post'> 
-    <input type='text' name='content' value='<%= @product['content']%>'></input> 
-    <input type='text' name='content' value='<%= @product['content']%>'></input>
+    <input type='text' name='name' value='<%= @product['name']%>'></input> 
+    <input type='text' name='price' value='<%= @product['price']%>'></input>
+    <input type='text' name='description' value='<%= @product['description']%>'></input>
     <button type='submit'>Send</button>
 </form>
+

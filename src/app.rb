@@ -8,6 +8,12 @@ class App < Sinatra::Base
         return @db
     end
 
+    helpers do
+        def h(text)
+            Rack::Utils.escape_html(text)
+        end
+    end
+
     get '/' do
         erb :index
     end
@@ -22,9 +28,11 @@ class App < Sinatra::Base
     end
 
     post '/products/' do 
-        name = params['content'] 
-        query = 'INSERT INTO products (name) VALUES (?) RETURNING *'
-        result = db.execute(query, name).first 
+        name = params['name']
+        price = params['price']
+        description = params['description'] 
+        query = 'INSERT INTO products (name, price, description) VALUES (?, ?, ?) RETURNING *'
+        result = db.execute(query, name, price, description).first 
         redirect "/product/#{result['id']}" 
     end
 
@@ -34,8 +42,10 @@ class App < Sinatra::Base
     end
 
     post '/products/:id/update' do |id| 
-        name = params['content']
-        db.execute('UPDATE products SET name = ? WHERE id = ?', name, id)
+        name = params['name']
+        price = params['price']
+        description = params['description']
+        db.execute('UPDATE products SET name = ?, price = ?, description = ? WHERE id = ?', name, price, description, id)
         redirect "/products/#{id}" 
     end
 
