@@ -27,6 +27,7 @@ def create_tables
         "adress"	TEXT NOT NULL,
         "payment_method"	TEXT NOT NULL,
         "password"	TEXT NOT NULL,
+        "admin"	INTEGER NOT NULL DEFAULT 0,
         PRIMARY KEY("id" AUTOINCREMENT)
     )')
    
@@ -67,10 +68,10 @@ end
 def seed_tables
 
     customers = [
-        {first_name: 'Testy', last_name: 'McTestface', adress: 'teststreet test', payment_method: 'tesh', phone: '0112345678', email: 'testy.mctestface@testmail.test', password: 'admin'},
-        {first_name: 'Sven', last_name: 'Svensson', adress: 'Svenssongatan 2', payment_method: 'Swish', phone: '0712345678', email: 'sven.svensson@hotmail.com', password: 'admin123'},
-        {first_name: 'Anders', last_name: 'Andersson', adress: 'Svenssongatan 3', payment_method: 'debit card', phone: '0723456789', email: 'anders.andersson@gmail.com', password: 'Admin123!'},
-        {first_name: 'Lars', last_name: 'Larsson', adress: 'Svenssongatan 1', payment_method: 'credit card', phone: '0734567890', email: 'lars.larsson@icloud.com', password: 'Crz0>n^g"yZx3R7IlWFWyO!SQc}<%MI>3rf4DU}}P[cp<xI'}
+        {first_name: 'Testy', last_name: 'McTestface', adress: 'teststreet test', payment_method: 'tesh', phone: '0112345678', email: 'testy.mctestface@testmail.test', password: 'admin', admin: '1'},
+        {first_name: 'Sven', last_name: 'Svensson', adress: 'Svenssongatan 2', payment_method: 'Swish', phone: '0712345678', email: 'sven.svensson@hotmail.com', password: 'admin123', admin: '0'},
+        {first_name: 'Anders', last_name: 'Andersson', adress: 'Svenssongatan 3', payment_method: 'debit card', phone: '0723456789', email: 'anders.andersson@gmail.com', password: 'Admin123!', admin: '0'},
+        {first_name: 'Lars', last_name: 'Larsson', adress: 'Svenssongatan 1', payment_method: 'credit card', phone: '0734567890', email: 'lars.larsson@icloud.com', password: 'Crz0>n^g"yZx3R7IlWFWyO!SQc}<%MI>3rf4DU}}P[cp<xI', admin: '0'}
     ]
 
     products = [
