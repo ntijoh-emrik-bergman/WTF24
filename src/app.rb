@@ -72,19 +72,28 @@ class App < Sinatra::Base
         erb :'products/show'
     end
 
-    get 'users/register' do
-        erb :'register'
+    get '/users/register' do
+        erb :'users/register'
     end
-    post 'users/register' do
+    post '/users/register' do
         cleartext_password = params['password'] 
         hashed_password = BCrypt::Password.create(cleartext_password) 
+        first_name = params['first_name']
+        last_name = params['last_name']
+        adress = params['adress']
+        payment_method = params['payment_method']
+        phone = params['phone']
+        email = params['email']
+        query = 'INSERT INTO users (query, first_name, last_name, adress, payment_method, phone, email, hashed_password) VALUES (?, ?, ?, ?, ?) RETURNING *'
+        result = db.execute(query, first_name, last_name, adress, payment_method, phone, email, hashed_password).first 
+        redirect "/users/#{result['id']}"
     end
 
-    get 'users/login' do  
-        erb :'login'
+    get '/users/login' do  
+        erb :'users/login'
     end
 
-    post 'users/login' do
+    post '/users/login' do
         username = params['email']
         cleartext_password = params['password']
         user = db.execute('SELECT * FROM users WHERE email = ?', email).first
@@ -94,7 +103,7 @@ class App < Sinatra::Base
            
           else
             
-          end
+        end
     end
     
 end
