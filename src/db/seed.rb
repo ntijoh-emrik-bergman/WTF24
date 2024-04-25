@@ -9,7 +9,7 @@ def db
 end
 
 def drop_tables
-    db.execute('DROP TABLE IF EXISTS customers')
+    db.execute('DROP TABLE IF users')
     db.execute('DROP TABLE IF EXISTS products')
     db.execute('DROP TABLE IF EXISTS line_items')
     db.execute('DROP TABLE IF EXISTS orders')
@@ -18,7 +18,7 @@ def drop_tables
 end
 
 def create_tables
-    db.execute('CREATE TABLE "customers" (
+    db.execute('CREATE TABLE "users" (
         "id"	INTEGER,
         "first_name"	TEXT NOT NULL,
         "last_name"	TEXT,
@@ -47,7 +47,7 @@ def create_tables
     db.execute('CREATE TABLE "orders" (
         "id"	INTEGER,
         "time"	TEXT NOT NULL,
-        "customer_id"	INTEGER NOT NULL,
+        "user_id"	INTEGER NOT NULL,
         PRIMARY KEY("id" AUTOINCREMENT)
     )')
 
@@ -67,7 +67,7 @@ end
 
 def seed_tables
 
-    customers = [
+    users = [
         {first_name: 'Testy', last_name: 'McTestface', adress: 'teststreet test', payment_method: 'tesh', phone: '0112345678', email: 'testy.mctestface@testmail.test', password: 'admin', admin: '1'},
         {first_name: 'Sven', last_name: 'Svensson', adress: 'Svenssongatan 2', payment_method: 'Swish', phone: '0712345678', email: 'sven.svensson@hotmail.com', password: 'admin123', admin: '0'},
         {first_name: 'Anders', last_name: 'Andersson', adress: 'Svenssongatan 3', payment_method: 'debit card', phone: '0723456789', email: 'anders.andersson@gmail.com', password: 'Admin123!', admin: '0'},
@@ -88,8 +88,8 @@ def seed_tables
         {name: 'PTFE-lined hotend'}
     ]
     
-    customers.each do |customer|
-        db.execute('INSERT INTO customers (first_name, last_name, phone, email, adress, payment_method, password) VALUES (?,?,?,?,?,?,?)', customer[:first_name], customer[:last_name], customer[:phone], customer[:email], customer[:adress], customer[:payment_method], customer[:password], )
+    users.each do |users|
+        db.execute('INSERT INTO users (first_name, last_name, phone, email, adress, payment_method, password) VALUES (?,?,?,?,?,?,?)', user[:first_name], user[:last_name], user[:phone], user[:email], user[:adress], user[:payment_method], user[:password], )
     end
 
     products.each do |product|

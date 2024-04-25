@@ -77,15 +77,15 @@ class App < Sinatra::Base
     end
     post '/users/register' do
         cleartext_password = params['password'] 
-        hashed_password = BCrypt::Password.create(cleartext_password) 
+        password = BCrypt::Password.create(cleartext_password) 
         first_name = params['first_name']
         last_name = params['last_name']
         adress = params['adress']
         payment_method = params['payment_method']
         phone = params['phone']
         email = params['email']
-        query = 'INSERT INTO users (query, first_name, last_name, adress, payment_method, phone, email, hashed_password) VALUES (?, ?, ?, ?, ?) RETURNING *'
-        result = db.execute(query, first_name, last_name, adress, payment_method, phone, email, hashed_password).first 
+        query = 'INSERT INTO users (first_name, last_name, adress, payment_method, phone, email, password) VALUES (?, ?, ?, ?, ?) RETURNING *'
+        result = db.execute(query, first_name, last_name, adress, payment_method, phone, email, password).first 
         redirect "/users/#{result['id']}"
     end
 
@@ -100,7 +100,7 @@ class App < Sinatra::Base
         password_from_db = BCrypt::Password.new(user['password'])
         if password_from_db == clertext_password 
             session[:user_id] = user['id'] 
-           
+           redirect "../products"
           else
             
         end
