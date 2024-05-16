@@ -9,7 +9,7 @@ def db
 end
 
 def drop_tables
-    db.execute('DROP TABLE IF users')
+    db.execute('DROP TABLE IF EXISTS users')
     db.execute('DROP TABLE IF EXISTS products')
     db.execute('DROP TABLE IF EXISTS line_items')
     db.execute('DROP TABLE IF EXISTS orders')
@@ -88,7 +88,7 @@ def seed_tables
         {name: 'PTFE-lined hotend'}
     ]
     
-    users.each do |users|
+    users.each do |user|
         db.execute('INSERT INTO users (first_name, last_name, phone, email, adress, payment_method, password) VALUES (?,?,?,?,?,?,?)', user[:first_name], user[:last_name], user[:phone], user[:email], user[:adress], user[:payment_method], user[:password], )
     end
 

@@ -20,7 +20,7 @@ class App < Sinatra::Base
         if session[:user_id].nil?
             @user = nil
         else
-            @user = db.execute('SELECT * FROM user WHERE ID = ?', session[:user_id])
+            @user = db.execute('SELECT * FROM users WHERE ID = ?', session[:user_id])
         end
     end
 
@@ -38,8 +38,14 @@ class App < Sinatra::Base
         erb :'products/new'
     end
 
+    before '/products/' do 
+        @user = db.execute('SELECT * FROM users WHERE ID = ?', session[:user_id])
+        if request.request_method == 'POST' && (@users.nil? || @user["admin"].to_i == 0)
+         redirect back
+        end
+    end
+
     post '/products/' do 
-        redirect '/products' if @user['admin'] == 1
         name = params['name']
         price = params['price']
         description = params['description'] 
@@ -53,6 +59,13 @@ class App < Sinatra::Base
         erb :'products/edit'
     end
 
+    before '/products/:id/update' do 
+        @user = db.execute('SELECT * FROM users WHERE ID = ?', session[:user_id])
+        if request.request_method == 'POST' && (@users.nil? || @user["admin"].to_i == 0)
+         redirect back
+        end
+    end
+
     post '/products/:id/update' do |id| 
         name = params['name']
         price = params['price']
@@ -61,7 +74,13 @@ class App < Sinatra::Base
         redirect "/products/#{id}" 
     end
 
-  
+    before '/products/:id/delete' do 
+        @user = db.execute('SELECT * FROM users WHERE ID = ?', session[:user_id])
+        if request.request_method == 'POST' && (@users.nil? || @user["admin"].to_i == 0)
+         redirect back
+        end
+    end
+
     post '/products/:id/delete' do |id| 
         db.execute('DELETE FROM products WHERE id = ?', id)
 		redirect "/products"
@@ -84,9 +103,9 @@ class App < Sinatra::Base
         payment_method = params['payment_method']
         phone = params['phone']
         email = params['email']
-        query = 'INSERT INTO users (first_name, last_name, adress, payment_method, phone, email, password) VALUES (?, ?, ?, ?, ?) RETURNING *'
+        query = 'INSERT INTO users (first_name, last_name, adress, payment_method, phone, email, password) VALUES (?, ?, ?, ?, ?, ?, ?) RETURNING *'
         result = db.execute(query, first_name, last_name, adress, payment_method, phone, email, password).first 
-        redirect "/users/#{result['id']}"
+        redirect "../"
     end
 
     get '/users/login' do  
@@ -96,14 +115,14 @@ class App < Sinatra::Base
     post '/users/login' do
         username = params['email']
         cleartext_password = params['password']
-        user = db.execute('SELECT * FROM users WHERE email = ?', email).first
+        user = db.execute('SELECT * FROM users WHERE email = ?', username).first
+        p user
         password_from_db = BCrypt::Password.new(user['password'])
-        if password_from_db == clertext_password 
+        if password_from_db == cleartext_password 
             session[:user_id] = user['id'] 
            redirect "../products"
           else
-            
+            redirect back
         end
     end
-    
 end
